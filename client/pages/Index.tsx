@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 const DrewHomepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
 
   const logos = [
     "/img_2.png",
@@ -16,6 +17,14 @@ const DrewHomepage = () => {
     "/Siemens-Logo.png"
   ];
 
+  const heroImages = [
+    "/heroimage.png",
+    "https://sedescochabamba.gob.bo/img/farmacias.jpeg",
+    "https://www.chopo.com.mx/media/wysiwyg/Blog_Chopo/laboratorio_cl_nico_blog_versi_n_desktop.jpg",
+    "https://www.farmactiva.es/wp-content/uploads/2021/01/marketing-y-comunicacion-para-tu-farmacia.jpg",
+    "https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1920"
+  ];
+
   const logosPerView = 5;
 
   useEffect(() => {
@@ -24,6 +33,13 @@ const DrewHomepage = () => {
     }, 4000);
     return () => clearInterval(timer);
   }, [logos.length]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % logos.length);
@@ -64,9 +80,25 @@ const DrewHomepage = () => {
 
       {/* Hero Section */}
       <section id="inicio" className="relative h-[600px] overflow-hidden">
-        <img src="/heroimage.png" alt="Cámara frigorífica farmacéutica" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
-        <div className="relative h-full max-w-7xl mx-auto px-8 flex items-center">
+        {/* Background Images Carousel */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className="absolute inset-0 transition-opacity duration-1500 ease-in-out"
+            style={{
+              opacity: currentHeroImage === index ? 1 : 0,
+              zIndex: currentHeroImage === index ? 1 : 0
+            }}
+          >
+            <img
+              src={image}
+              alt="Distribución farmacéutica"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" style={{ zIndex: 2 }}></div>
+        <div className="relative h-full max-w-7xl mx-auto px-8 flex items-center" style={{ zIndex: 3 }}>
           <div className="max-w-3xl">
             <h2 className="text-[72px] leading-[1.1] font-black text-white mb-6 tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}>
               Distribuidora<br />Farmacéutica Integral
@@ -76,6 +108,22 @@ const DrewHomepage = () => {
               Conoce Más
             </button>
           </div>
+        </div>
+
+        {/* Hero Navigation Dots */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3" style={{ zIndex: 4 }}>
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentHeroImage(index)}
+              className={`transition-all duration-300 rounded-full ${
+                currentHeroImage === index
+                  ? 'bg-white w-10 h-2'
+                  : 'bg-white/50 hover:bg-white/70 w-2 h-2'
+              }`}
+              aria-label={`Ir a imagen ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
