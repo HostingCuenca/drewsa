@@ -1,9 +1,10 @@
-import { Target, Users, Lightbulb, Shield, Award, TrendingUp, Heart, UserCheck, Package, Truck, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Target, Users, Lightbulb, Shield, Award, TrendingUp, Heart, UserCheck, Package, Truck, CheckCircle, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const DrewHomepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const logos = [
     "/img_2.png",
@@ -60,26 +61,95 @@ const DrewHomepage = () => {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img src="/logo.png" alt="DREW S.A. Logo" className="h-14 w-auto object-contain" />
+              <img src="/logo.png" alt="DREW S.A. Logo" className="h-12 sm:h-14 w-auto object-contain" />
             </div>
-            <nav className="hidden md:flex gap-8 text-[15px]">
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex gap-6 xl:gap-8 text-[15px]">
               <a href="#inicio" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Inicio</a>
               <a href="#laboratorios" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Laboratorios</a>
               <a href="#nosotros" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Nosotros</a>
               <a href="#mision-vision" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Misión y Visión</a>
               <a href="#valores" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Valores</a>
               <a href="#servicios" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Servicios</a>
+              <a href="#contacto" className="text-gray-700 hover:text-[#C9A55C] transition font-medium">Contacto</a>
             </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 text-gray-700 hover:text-[#C9A55C] transition"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <nav className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
+              <div className="flex flex-col space-y-3">
+                <a
+                  href="#inicio"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Inicio
+                </a>
+                <a
+                  href="#laboratorios"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Laboratorios
+                </a>
+                <a
+                  href="#nosotros"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Nosotros
+                </a>
+                <a
+                  href="#mision-vision"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Misión y Visión
+                </a>
+                <a
+                  href="#valores"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Valores
+                </a>
+                <a
+                  href="#servicios"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Servicios
+                </a>
+                <a
+                  href="#contacto"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#C9A55C] transition font-medium px-2 py-2"
+                >
+                  Contacto
+                </a>
+              </div>
+            </nav>
+          )}
         </div>
       </header>
 
       {/* Hero Section */}
-      <section id="inicio" className="relative h-[600px] overflow-hidden">
+      <section id="inicio" className="relative h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden">
         {/* Background Images Carousel */}
         {heroImages.map((image, index) => (
           <div
@@ -97,28 +167,28 @@ const DrewHomepage = () => {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" style={{ zIndex: 2 }}></div>
-        <div className="relative h-full max-w-7xl mx-auto px-8 flex items-center" style={{ zIndex: 3 }}>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30 sm:from-black/70 sm:via-black/50 sm:to-transparent" style={{ zIndex: 2 }}></div>
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center" style={{ zIndex: 3 }}>
           <div className="max-w-3xl">
-            <h2 className="text-[72px] leading-[1.1] font-black text-white mb-6 tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}>
+            <h2 className="text-[28px] sm:text-[48px] md:text-[60px] lg:text-[72px] leading-[1.1] font-black text-white mb-4 sm:mb-6 tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}>
               Distribuidora<br />Farmacéutica Integral
             </h2>
-            <p className="text-[22px] text-white mb-10 font-light tracking-wide leading-relaxed">Distribución que cuida vidas, comprometidos con tu bienestar.</p>
-            <button className="bg-[#B8956A] hover:bg-[#A0835C] text-white px-10 py-4 rounded font-bold transition shadow-lg text-[16px] tracking-wider uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white mb-6 sm:mb-8 lg:mb-10 font-light tracking-wide leading-relaxed">Distribución que cuida vidas, comprometidos con tu bienestar.</p>
+            <button className="bg-[#B8956A] hover:bg-[#A0835C] text-white px-6 sm:px-8 lg:px-10 py-3 sm:py-3.5 lg:py-4 rounded font-bold transition shadow-lg text-[14px] sm:text-[15px] lg:text-[16px] tracking-wider uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
               Conoce Más
             </button>
           </div>
         </div>
 
         {/* Hero Navigation Dots */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3" style={{ zIndex: 4 }}>
+        <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3" style={{ zIndex: 4 }}>
           {heroImages.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentHeroImage(index)}
               className={`transition-all duration-300 rounded-full ${
                 currentHeroImage === index
-                  ? 'bg-white w-10 h-2'
+                  ? 'bg-white w-8 sm:w-10 h-2'
                   : 'bg-white/50 hover:bg-white/70 w-2 h-2'
               }`}
               aria-label={`Ir a imagen ${index + 1}`}
@@ -128,62 +198,62 @@ const DrewHomepage = () => {
       </section>
 
       {/* Laboratorios Section - Carrusel */}
-      <section id="laboratorios" className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-8">
-          <h3 className="text-[36px] font-black text-gray-900 mb-4 text-center tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
+      <section id="laboratorios" className="py-16 sm:py-20 lg:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-[28px] sm:text-[32px] lg:text-[36px] font-black text-gray-900 mb-3 sm:mb-4 text-center tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
             Laboratorios con los que trabajamos
           </h3>
-          <p className="text-[18px] text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-[16px] sm:text-[17px] lg:text-[18px] text-gray-600 text-center mb-8 sm:mb-10 lg:mb-12 max-w-2xl mx-auto">
             Colaboramos con los principales laboratorios farmacéuticos para garantizar productos de calidad
           </p>
           <div className="relative max-w-6xl mx-auto">
             {/* Carousel Container */}
             <div className="overflow-hidden px-2">
               <div
-                className="flex gap-8 transition-transform duration-700 ease-in-out"
+                className="flex gap-4 sm:gap-6 lg:gap-8 transition-transform duration-700 ease-in-out"
                 style={{
-                  transform: `translateX(-${currentIndex * (200 + 32)}px)`
+                  transform: `translateX(-${currentIndex * (150 + 16)}px)`
                 }}
               >
                 {[...logos, ...logos, ...logos].map((logo, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-center flex-shrink-0 w-[200px] p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center justify-center flex-shrink-0 w-[150px] sm:w-[180px] lg:w-[200px] p-4 sm:p-5 lg:p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
                   >
                     <img
                       src={logo}
                       alt="Laboratorio"
-                      className="max-h-16 w-auto object-contain grayscale hover:grayscale-0 transition"
+                      className="max-h-12 sm:max-h-14 lg:max-h-16 w-auto object-contain grayscale hover:grayscale-0 transition"
                     />
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Hidden on mobile */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition z-10"
+              className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 bg-white rounded-full p-2 lg:p-3 shadow-lg hover:bg-gray-100 transition z-10"
               aria-label="Anterior"
             >
-              <ChevronLeft className="w-6 h-6 text-gray-700" />
+              <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 transition z-10"
+              className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 bg-white rounded-full p-2 lg:p-3 shadow-lg hover:bg-gray-100 transition z-10"
               aria-label="Siguiente"
             >
-              <ChevronRight className="w-6 h-6 text-gray-700" />
+              <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
             </button>
 
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-1.5 sm:gap-2 mt-6 sm:mt-8">
               {logos.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition ${
-                    currentIndex === index ? 'bg-[#C9A55C] w-8' : 'bg-gray-300'
+                    currentIndex === index ? 'bg-[#C9A55C] w-6 sm:w-8' : 'bg-gray-300'
                   }`}
                   aria-label={`Ir a logo ${index + 1}`}
                 />
