@@ -163,7 +163,7 @@ const DrewHomepage = () => {
             </div>
           </div>
         </div>
-      </section> 
+      </section>
 
       {/* Infraestructura Section */}
       <section className="py-24 bg-gray-50">
