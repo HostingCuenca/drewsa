@@ -673,7 +673,26 @@ const DrewHomepage = () => {
 
             {/* Formulario de contacto */}
             <div>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const nombre = formData.get('nombre') || '';
+                const empresa = formData.get('empresa') || '';
+                const email = formData.get('email') || '';
+                const telefono = formData.get('telefono') || '';
+                const asunto = formData.get('asunto') || '';
+                const mensaje = formData.get('mensaje') || '';
+
+                let whatsappMessage = `*Hola, soy ${nombre}*\n\n`;
+                if (empresa) whatsappMessage += `*Empresa:* ${empresa}\n`;
+                if (email) whatsappMessage += `*Email:* ${email}\n`;
+                if (telefono) whatsappMessage += `*Teléfono:* ${telefono}\n`;
+                if (asunto) whatsappMessage += `\n*Asunto:* ${asunto}\n`;
+                if (mensaje) whatsappMessage += `\n*Mensaje:*\n${mensaje}`;
+
+                const whatsappUrl = `https://wa.me/593958699845?text=${encodeURIComponent(whatsappMessage)}`;
+                window.open(whatsappUrl, '_blank');
+              }}>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="nombre" className="block text-[15px] font-semibold text-gray-700 mb-2">
@@ -683,6 +702,7 @@ const DrewHomepage = () => {
                       type="text"
                       id="nombre"
                       name="nombre"
+                      required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#C9A55C] focus:border-transparent outline-none transition text-[15px]"
                       placeholder="Juan Pérez"
                     />
