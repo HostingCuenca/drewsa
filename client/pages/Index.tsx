@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 const DrewHomepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [currentFoundationImage, setCurrentFoundationImage] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const logos = [
@@ -26,6 +27,11 @@ const DrewHomepage = () => {
     "https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1920"
   ];
 
+  const foundationImages = [
+    "/fundacion.jpeg",
+    "/desayunoempresarial.jpeg"
+  ];
+
   const logosPerView = 5;
 
   useEffect(() => {
@@ -42,12 +48,27 @@ const DrewHomepage = () => {
     return () => clearInterval(timer);
   }, [heroImages.length]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentFoundationImage((prev) => (prev + 1) % foundationImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [foundationImages.length]);
+
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % logos.length);
   };
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev - 1 + logos.length) % logos.length);
+  };
+
+  const nextFoundationSlide = () => {
+    setCurrentFoundationImage((prev) => (prev + 1) % foundationImages.length);
+  };
+
+  const prevFoundationSlide = () => {
+    setCurrentFoundationImage((prev) => (prev - 1 + foundationImages.length) % foundationImages.length);
   };
 
   const getVisibleLogos = () => {
@@ -313,22 +334,68 @@ const DrewHomepage = () => {
               Convenio con <span className="text-[#C9A55C]">Fundaciones</span>
             </h3>
 
-            <div className="space-y-5 text-[17px] text-gray-700 leading-relaxed mb-10 max-w-3xl">
-              <p>
-                En DREW S.A. mantenemos un firme compromiso social con la comunidad. Colaboramos activamente con fundaciones dedicadas al cuidado de la salud y el bienestar de poblaciones vulnerables.
+            <div className="text-[17px] text-gray-700 leading-relaxed mb-10 max-w-3xl">
+              <p className="mb-5">
+                En DREW S.A. mantenemos un firme compromiso social colaborando activamente con fundaciones dedicadas al cuidado de la salud y el bienestar de poblaciones vulnerables, garantizando el suministro oportuno de medicamentos esenciales.
               </p>
               <p>
-                A través de convenios estratégicos, garantizamos el suministro oportuno de medicamentos y productos farmacéuticos esenciales, contribuyendo al mejoramiento de la calidad de vida de quienes más lo necesitan.
+                Además, participamos en eventos empresariales como el Desayuno Conferencias, fortaleciendo relaciones estratégicas y manteniéndonos a la vanguardia del sector farmacéutico.
               </p>
             </div>
 
-            {/* Imagen grande centrada */}
-            <div className="relative group w-full max-w-4xl mb-10">
-              <img
-                src="/fundacion.jpeg"
-                alt="Convenio con Fundaciones"
-                className="w-full h-[500px] object-cover rounded-xl shadow-xl group-hover:shadow-2xl transition-shadow duration-500"
-              />
+            {/* Carrusel de imágenes */}
+            <div className="relative w-full max-w-4xl mb-10">
+              {/* Images Container */}
+              <div className="relative h-[500px] overflow-hidden rounded-xl shadow-xl">
+                {foundationImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                    style={{
+                      opacity: currentFoundationImage === index ? 1 : 0,
+                      zIndex: currentFoundationImage === index ? 1 : 0
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt={`Compromiso Social ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Navigation Buttons */}
+              <button
+                onClick={prevFoundationSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition z-10"
+                aria-label="Imagen anterior"
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-700" />
+              </button>
+              <button
+                onClick={nextFoundationSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 shadow-lg transition z-10"
+                aria-label="Siguiente imagen"
+              >
+                <ChevronRight className="w-6 h-6 text-gray-700" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                {foundationImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentFoundationImage(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      currentFoundationImage === index
+                        ? 'bg-white w-8 h-2'
+                        : 'bg-white/50 hover:bg-white/70 w-2 h-2'
+                    }`}
+                    aria-label={`Ir a imagen ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* Características con iconos dorados - centradas */}
@@ -366,6 +433,45 @@ const DrewHomepage = () => {
           </div>
         </div>
       </section>
+
+
+      {/* Desayuno Empresarial Section - COMENTADO (Integrado en la sección de Convenio con Fundaciones) */}
+      {/* <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="mb-8">
+                <img
+                  src="/logoconvene.png"
+                  alt="Logo Desayuno Conferencias"
+                  className="w-48 h-auto object-contain"
+                />
+              </div>
+
+              <h3 className="text-[28px] sm:text-[38px] font-black text-gray-900 mb-6 tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
+                Desayuno <span className="text-[#C9A55C]">Empresarial</span>
+              </h3>
+
+              <div className="text-gray-700 leading-relaxed text-[17px] space-y-5 text-justify">
+                <p>
+                  En DREW S.A. participamos activamente en eventos que fortalecen las relaciones empresariales y el desarrollo del sector farmacéutico. Nuestro compromiso en el Desayuno Conferencias refleja nuestra dedicación por mantenernos a la vanguardia del sector.
+                </p>
+                <p>
+                  Este tipo de eventos nos permite compartir experiencias, conocer las últimas tendencias del mercado y fortalecer alianzas estratégicas con líderes de la industria farmacéutica y de salud.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex justify-end">
+              <img
+                src="/desayuno.png"
+                alt="Participación en Desayuno Conferencias DREW S.A."
+                className="w-full max-w-[450px] h-[550px] rounded-2xl object-cover shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section> */}
 
       {/* Cultura Corporativa Section */}
       <section className="py-24 bg-white">
