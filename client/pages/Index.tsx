@@ -319,18 +319,18 @@ const DrewHomepage = () => {
       </section>
 
       {/* Convenio con Fundaciones Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-8">
           {/* Contenido centrado */}
           <div className="flex flex-col items-center text-center">
 
             {/* Badge dorado */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#C9A55C] to-[#B8956A] text-white px-6 py-2 rounded-full mb-6 shadow-lg">
-              <Award className="w-5 h-5" />
-              <span className="font-bold text-[14px] tracking-wider uppercase">Compromiso Social</span>
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#C9A55C] to-[#B8956A] text-white px-8 py-3 rounded-full mb-6 shadow-lg">
+              <Award className="w-7 h-7" />
+              <span className="font-bold text-[16px] tracking-wider uppercase">Compromiso Social</span>
             </div>
 
-            <h3 className="text-[26px] sm:text-[36px] md:text-[42px] font-black text-gray-900 mb-6 tracking-tight uppercase leading-tight" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
+            <h3 className="text-[26px] sm:text-[36px] md:text-[32px] font-black text-gray-900 mb-6 tracking-tight uppercase leading-tight" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
               Convenio con <span className="text-[#C9A55C]">Fundaciones</span>
             </h3>
 
@@ -474,9 +474,9 @@ const DrewHomepage = () => {
       </section> */}
 
       {/* Cultura Corporativa Section */}
-      <section className="py-24 bg-white">
+      <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <h3 className="text-[28px] sm:text-[38px] md:text-[42px] font-black text-gray-900 mb-4 tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
               Nuestro Equipo
             </h3>
