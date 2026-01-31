@@ -1,11 +1,13 @@
 import { Target, Users, Lightbulb, Shield, Award, TrendingUp, Heart, UserCheck, Package, Truck, CheckCircle, ChevronLeft, ChevronRight, Menu, X, Baby, Bone, Apple, Flower2, Droplet } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const DrewHomepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [currentFoundationImage, setCurrentFoundationImage] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const logos = [
     "/img_2.png",
@@ -502,6 +504,165 @@ const DrewHomepage = () => {
                 className="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Video Corporativo Section */}
+      <section id="video-corporativo" className="py-20 sm:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#C9A55C] to-[#B8956A] text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full mb-5 sm:mb-6 shadow-lg">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="font-bold text-[14px] sm:text-[16px] tracking-wider uppercase">Video Corporativo</span>
+            </div>
+            <h3 className="text-[24px] sm:text-[32px] lg:text-[38px] font-black text-gray-900 mb-4 tracking-tight uppercase" style={{ fontFamily: '"Mona Sans", system-ui, -apple-system, sans-serif' }}>
+              Reuniones y Convenios
+            </h3>
+            <p className="text-[16px] sm:text-[18px] text-gray-600 max-w-2xl mx-auto">
+              Conoce más sobre nuestro trabajo con proveedores, personal y aliados estratégicos
+            </p>
+          </div>
+
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-10">
+            {/* Elementos decorativos izquierda - Solo desktop */}
+            <div className="hidden lg:flex flex-col gap-5">
+              <div className="w-[260px] h-[100px] flex items-center gap-4 bg-gradient-to-r from-[#C9A55C] to-[#B8956A] p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <UserCheck className="w-7 h-7 text-white" />
+                </div>
+                <div className="text-right flex-1">
+                  <p className="font-bold text-white text-[16px]">Proveedores</p>
+                  <p className="text-[13px] text-white/80">Alianzas estratégicas</p>
+                </div>
+              </div>
+              <div className="w-[260px] h-[100px] flex items-center gap-4 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105 border-2 border-[#C9A55C]/20">
+                <div className="w-14 h-14 bg-[#C9A55C]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Award className="w-7 h-7 text-[#C9A55C]" />
+                </div>
+                <div className="text-right flex-1">
+                  <p className="font-bold text-gray-900 text-[16px]">Convenios</p>
+                  <p className="text-[13px] text-gray-600">Acuerdos de calidad</p>
+                </div>
+              </div>
+              <div className="w-[260px] h-[100px] flex items-center gap-4 bg-gradient-to-r from-[#B8956A] to-[#C9A55C] p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Heart className="w-7 h-7 text-white" />
+                </div>
+                <div className="text-right flex-1">
+                  <p className="font-bold text-white text-[16px]">Compromiso Social</p>
+                  <p className="text-[13px] text-white/80">Con la salud y bienestar</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Video centrado */}
+            <div className="w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[500px]">
+              <div
+                className="relative rounded-2xl overflow-hidden shadow-2xl bg-black cursor-pointer"
+                onClick={() => {
+                  if (videoRef.current) {
+                    if (isVideoPlaying) {
+                      videoRef.current.pause();
+                      setIsVideoPlaying(false);
+                    } else {
+                      videoRef.current.play();
+                      setIsVideoPlaying(true);
+                    }
+                  }
+                }}
+              >
+                <video
+                  ref={videoRef}
+                  className="w-full h-auto"
+                  poster="/logo.png"
+                  preload="metadata"
+                  playsInline
+                  onEnded={() => setIsVideoPlaying(false)}
+                  onPause={() => setIsVideoPlaying(false)}
+                  onPlay={() => setIsVideoPlaying(true)}
+                >
+                  <source src="/videocorporativo.mp4" type="video/mp4" />
+                  Tu navegador no soporta el elemento de video.
+                </video>
+
+                {/* Overlay con botón de play */}
+                <div
+                  className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity duration-300 ${
+                    isVideoPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  }`}
+                >
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/90 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+                    <svg
+                      className="w-8 h-8 sm:w-10 sm:h-10 text-[#C9A55C] ml-1"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Elementos decorativos derecha - Solo desktop */}
+            <div className="hidden lg:flex flex-col gap-5">
+              <div className="w-[260px] h-[100px] flex items-center gap-4 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105 border-2 border-[#C9A55C]/20">
+                <div className="w-14 h-14 bg-[#C9A55C]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Users className="w-7 h-7 text-[#C9A55C]" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-gray-900 text-[16px]">Personal Calificado</p>
+                  <p className="text-[13px] text-gray-600">Equipo profesional</p>
+                </div>
+              </div>
+              <div className="w-[260px] h-[100px] flex items-center gap-4 bg-gradient-to-r from-[#C9A55C] to-[#B8956A] p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105">
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                  <TrendingUp className="w-7 h-7 text-white" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-white text-[16px]">Crecimiento</p>
+                  <p className="text-[13px] text-white/80">Mejora continua</p>
+                </div>
+              </div>
+              <div className="w-[260px] h-[100px] flex items-center gap-4 bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105 border-2 border-[#C9A55C]/20">
+                <div className="w-14 h-14 bg-[#C9A55C]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-7 h-7 text-[#C9A55C]" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-bold text-gray-900 text-[16px]">Confianza Total</p>
+                  <p className="text-[13px] text-gray-600">Relaciones sólidas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Elementos en móvil - Grid debajo del video */}
+          <div className="grid grid-cols-2 gap-4 mt-8 lg:hidden">
+            <div className="h-[100px] flex flex-col items-center justify-center gap-2 bg-gradient-to-r from-[#C9A55C] to-[#B8956A] p-4 rounded-xl shadow-lg">
+              <div className="w-11 h-11 bg-white/20 rounded-full flex items-center justify-center">
+                <UserCheck className="w-5 h-5 text-white" />
+              </div>
+              <p className="font-bold text-white text-[13px] text-center">Proveedores</p>
+            </div>
+            <div className="h-[100px] flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-xl shadow-lg border-2 border-[#C9A55C]/20">
+              <div className="w-11 h-11 bg-[#C9A55C]/10 rounded-full flex items-center justify-center">
+                <Award className="w-5 h-5 text-[#C9A55C]" />
+              </div>
+              <p className="font-bold text-gray-900 text-[13px] text-center">Convenios</p>
+            </div>
+            <div className="h-[100px] flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-xl shadow-lg border-2 border-[#C9A55C]/20">
+              <div className="w-11 h-11 bg-[#C9A55C]/10 rounded-full flex items-center justify-center">
+                <Heart className="w-5 h-5 text-[#C9A55C]" />
+              </div>
+              <p className="font-bold text-gray-900 text-[13px] text-center">Compromiso Social</p>
+            </div>
+            <div className="h-[100px] flex flex-col items-center justify-center gap-2 bg-gradient-to-r from-[#B8956A] to-[#C9A55C] p-4 rounded-xl shadow-lg">
+              <div className="w-11 h-11 bg-white/20 rounded-full flex items-center justify-center">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <p className="font-bold text-white text-[13px] text-center">Confianza Total</p>
             </div>
           </div>
         </div>
